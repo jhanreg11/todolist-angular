@@ -3,6 +3,7 @@ export class TodoItem {
     public content: string,
     public group: string,
     public dateCreated: Date,
-    public dateDue?: Date
+    public dateDue: Date,
+    public completed: boolean,
   ) {}
 }

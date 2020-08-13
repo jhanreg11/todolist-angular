@@ -15,6 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { TodolistComponent } from './todolist/todolist.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TodoComponent } from './todo/todo.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -22,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
     AppComponent,
     TodoFormComponent,
     TodolistComponent,
+    TodoComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,10 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatButtonModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
