@@ -1,0 +1,23 @@
+<form #todoForm="ngForm" (ngSubmit)="createTodo(); todoForm.resetForm()">
+  <h1>New Todo Item</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a category:</mat-label>
+    <mat-select name="category" required [(ngModel)]="currTodo.category">
+      <mat-option *ngFor="let cat of categories" [value]="cat">{{cat}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your Todo:</mat-label>
+    <textarea matInput matTextareaAutosize name="data" required [(ngModel)]="currTodo.content"></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter due date:</mat-label>
+    <input matInput [matDatepicker]="picker" required [(ngModel)]="currTodo.dateDue" name="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button type="submit" color="primary" [disabled]="!todoForm.valid">Create Todo Item</button>
+</form>

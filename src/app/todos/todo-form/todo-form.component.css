@@ -1,0 +1,12 @@
+form {
+  border: solid gray 1px;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+

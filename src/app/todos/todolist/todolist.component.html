@@ -1,0 +1,44 @@
+<div class="wrapper">
+
+  <div class="header top">
+    <div class="chips">
+      <mat-chip-list #chipList="matChipList" aria-label="Category selection" multiple="true" >
+        <mat-chip #chip="matChip"
+          *ngFor="let cat of categories"
+          (click)="chip.toggleSelected()"
+          (selectionChange)="updateCategories(chip.selected, cat)">
+          {{cat}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <div class="order-buttons">
+      <mat-form-field appearance="standard">
+        <mat-label>Order Criteria:</mat-label>
+        <mat-select name="category" [(ngModel)]="orderCriteria" (selectionChange)="_sortTodos(validList)">
+          <mat-option value="dateDue">Due Date</mat-option>
+          <mat-option value="dateCreated">Creation Date</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Order By:</mat-label>
+        <mat-select name="orderTime" [(ngModel)]="reverseOrder" (selectionChange)="_sortTodos(validList)">
+          <mat-option [value]="true">Earliest to Latest</mat-option>
+          <mat-option [value]="false">Latest to Earliest</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="tab-container">
+    <mat-tab-group>
+      <mat-tab label="Todos">
+        <ng-template matTabContent>
+          <app-todo *ngFor="let item of validList" [item]="item"></app-todo>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Completed">
+        <app-todo *ngFor="let item of validList" [item]="item"></app-todo>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <mat-paginator [length]="validList.length" [pageSize]="10"></mat-paginator>
+</div>

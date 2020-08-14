@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+
+  border-bottom: solid #434343 1px;
+  padding: 5px 0 5px 5px;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 16px 2px;
+  width: 100%;
+}
+
+.date {
+  color: #A3A3A3;
+  font-size: .95em;
+}
+
+.todo-content {
+  font-size: 1.1em;
+}
+
+.left {
+  max-width: 85%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
+
+.right > .date {
+  text-align: right;
+}
+

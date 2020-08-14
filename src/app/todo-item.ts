@@ -1,9 +1,9 @@
 export class TodoItem {
   constructor(
     public content: string,
-    public group: string,
-    public dateCreated: Date,
+    public category: string,
     public dateDue: Date,
-    public completed: boolean,
+    public dateCreated: Date = new Date(),
+    public completed: boolean = false,
   ) {}
 }

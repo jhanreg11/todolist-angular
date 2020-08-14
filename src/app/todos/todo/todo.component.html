@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <mat-checkbox [(ngModel)]="item.completed"></mat-checkbox>
+  <div class="body">
+    <div class="left half">
+      <div class="date">Due: {{item.dateDue | date: 'shortDate'}}</div>
+      <div class="todo-content">{{item.content}}</div>
+    </div>
+    <div class="right half">
+      <div class="date">Created: {{item.dateCreated | date: 'shortDate'}}&nbsp;</div>
+      <mat-chip-list>
+        <mat-chip color="primary" selected>{{item.category}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

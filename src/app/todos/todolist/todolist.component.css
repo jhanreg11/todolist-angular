@@ -1,0 +1,27 @@
+.wrapper {
+  width: 70%;
+  border: solid gray 1px;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.order-buttons {
+  display: flex;
+}
+
+.order-buttons > mat-form-field {
+  margin: 0 5px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  background-color: #434343;
+}
+
+app-todo {
+  width: 100%;
+}
