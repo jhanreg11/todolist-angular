@@ -10,9 +10,8 @@ export class TodoService {
   todos = new Array<TodoItem>();
 
   async addNewTodo(todo: TodoItem): Promise<TodoItem> {
-    // this.todos.push(todo);
-    // this.todoEmitter.emit(todo);
-    console.log(todo);
+    this.todos.push(todo);
+    this.todoEmitter.emit(todo);
     return todo;
   }
 

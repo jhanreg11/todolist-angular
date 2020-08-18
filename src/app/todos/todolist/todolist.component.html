@@ -14,14 +14,14 @@
     <div class="order-buttons">
       <mat-form-field appearance="standard">
         <mat-label>Order Criteria:</mat-label>
-        <mat-select name="category" [(ngModel)]="orderCriteria" (selectionChange)="_sortTodos(validList)">
+        <mat-select name="category" [(ngModel)]="orderCriteria" (selectionChange)="sortTodos(validList)">
           <mat-option value="dateDue">Due Date</mat-option>
           <mat-option value="dateCreated">Creation Date</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>Order By:</mat-label>
-        <mat-select name="orderTime" [(ngModel)]="reverseOrder" (selectionChange)="_sortTodos(validList)">
+        <mat-select name="orderTime" [(ngModel)]="reverseOrder" (selectionChange)="sortTodos(validList)">
           <mat-option [value]="true">Earliest to Latest</mat-option>
           <mat-option [value]="false">Latest to Earliest</mat-option>
         </mat-select>
@@ -29,14 +29,14 @@
     </div>
   </div>
   <div class="tab-container">
-    <mat-tab-group>
+    <mat-tab-group (selectedTabChange)="changeCompleted()">
       <mat-tab label="Todos">
         <ng-template matTabContent>
-          <app-todo *ngFor="let item of validList" [item]="item"></app-todo>
+          <app-todo #todoComponent *ngFor="let item of validList" [item]="item" [checkboxClickEvent]="checkboxClick"></app-todo>
         </ng-template>
       </mat-tab>
       <mat-tab label="Completed">
-        <app-todo *ngFor="let item of validList" [item]="item"></app-todo>
+        <app-todo #todoComponent *ngFor="let item of validList" [item]="item" [checkboxClickEvent]="checkboxClick"></app-todo>
       </mat-tab>
     </mat-tab-group>
   </div>

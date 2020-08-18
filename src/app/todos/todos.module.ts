@@ -15,6 +15,7 @@ import { TodoPageComponent } from './todo-page/todo-page.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -29,13 +30,13 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule,
     MatCheckboxModule,
     MatChipsModule,
     MatTabsModule,
     MatPaginatorModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
 })
 export class TodosModule { }

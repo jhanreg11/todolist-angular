@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <mat-checkbox [(ngModel)]="item.completed"></mat-checkbox>
+  <mat-checkbox  (change)="checkboxClickEvent(item)" [(ngModel)]="item.completed"></mat-checkbox>
   <div class="body">
     <div class="left half">
       <div class="date">Due: {{item.dateDue | date: 'shortDate'}}</div>

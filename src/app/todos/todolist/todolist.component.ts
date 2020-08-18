@@ -1,12 +1,37 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TodoItem } from '../../todo-item';
-import { MatChip } from '@angular/material/chips';
 import { TodoService } from '../todo.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
-  styleUrls: ['./todolist.component.css']
+  styleUrls: ['./todolist.component.css'],
+  // animations: [
+  //   trigger('checkUncheck', [
+  //     state('left', style({
+  //       margin: '0 100% 0 -100%'
+  //     })),
+  //     state('right', style({
+  //       margin: '0 -100% 0 100%'
+  //     })),
+  //     state('center', style({
+  //       margin: '0 0 0 0'
+  //     })),
+  //     transition('left => center', [
+  //       animate('500 10')
+  //     ]),
+  //     transition('right => center', [
+  //       animate('500 10')
+  //     ]),
+  //     transition('center => right', [
+  //       animate('500 10')
+  //     ]),
+  //     transition('center => left', [
+  //       animate('500 10')
+  //     ]),
+  //   ])
+  // ]
 })
 export class TodolistComponent implements OnInit {
   @Input() categories: Array<string>;
@@ -23,24 +48,41 @@ export class TodolistComponent implements OnInit {
     this.todoService.todoEmitter.subscribe(todo => this._addNewTodo(todo));
   }
 
-  updateCategories(selected: boolean, catName: string): void {
-    console.log(this.entireList);
-    if (this.selectedCategories.length === 0) {
-      this.validList = this.entireList.filter(todo => todo.category === catName);
-    }
-    else if (selected) {
-      const newAdditions = this.entireList.filter((todo: TodoItem) => todo.category === catName);
-      this.validList = this._sortTodos(this.validList.concat(newAdditions));
-      this.selectedCategories.push(catName);
-    }
-    else {
-      this.validList = this.validList.filter((todo: TodoItem) => todo.category !== catName);
-      this.selectedCategories.filter(cat => cat !== catName);
+  private _addNewTodo(todo: TodoItem): void {
+    this.entireList.push(todo);
+    if (this.showCompleted === todo.completed && (this.selectedCategories.includes(todo.category)
+      || this.selectedCategories.length === 0)) {
+      this.validList.push(todo);
+      this.sortTodos(this.validList);
     }
   }
 
-  _sortTodos(todoList: Array<TodoItem>): Array<TodoItem> {
-    console.log('_sortTodos called');
+  updateCategories(selected: boolean, catName: string): void {
+    const filterFn = (todo: TodoItem) => todo.category === catName && todo.completed === this.showCompleted;
+    if (selected) {
+      if (this.selectedCategories.length === 0) {
+        this.validList = this.entireList.filter(filterFn);
+      }
+      else {
+        const newAdditions = this.entireList.filter(filterFn);
+        this.validList = this.sortTodos(this.validList.concat(newAdditions));
+      }
+      this.selectedCategories.push(catName);
+    }
+    else {
+      if (this.selectedCategories.length === 1) {
+        this.validList = this.entireList.filter(item => item.completed === this.showCompleted);
+        this.sortTodos(this.validList);
+        this.selectedCategories = [];
+      }
+      else {
+        this.validList = this.validList.filter((todo: TodoItem) => todo.category !== catName);
+        this.selectedCategories.splice(this.selectedCategories.indexOf(catName), 1);
+      }
+    }
+  }
+
+  sortTodos(todoList: Array<TodoItem>): Array<TodoItem> {
     todoList.sort((a, b) => {
       const diff = a[this.orderCriteria] - b[this.orderCriteria];
       return this.reverseOrder ? diff : -diff;
@@ -49,19 +91,14 @@ export class TodolistComponent implements OnInit {
     return todoList;
   }
 
-  _createValidList(): void {
-    this.validList = this.entireList.filter(todo => todo.completed === this.showCompleted
-      && this.selectedCategories.includes(todo.category));
-    this._sortTodos(this.validList);
+  checkboxClick = (item: TodoItem): void => {
+    this.validList.splice(this.validList.indexOf(item), 1);
   }
 
-  _addNewTodo(todo: TodoItem): void {
-    console.log('_addNewTodo called');
-    this.entireList.push(todo);
-    if (this.selectedCategories.includes(todo.category) || this.selectedCategories.length === 0) {
-      this.validList.push(todo);
-      this._sortTodos(this.validList);
-    }
-    console.log(this.validList, this.entireList);
+  changeCompleted = (): void => {
+    this.showCompleted = !this.showCompleted;
+    this.validList = this.entireList.filter(item => item.completed === this.showCompleted && (this.selectedCategories.length === 0
+      || this.selectedCategories.includes(item.category)));
+    this.sortTodos(this.validList);
   }
 }

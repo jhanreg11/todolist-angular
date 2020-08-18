@@ -14,8 +14,17 @@
   line-height: 1.5em;
 }
 
-.link {
+.text.link {
   color: #c2185b;
+}
+
+.link {
+  z-index: 100;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
 }
 
 .landing-desc > h1 {
